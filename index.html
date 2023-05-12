@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Haugh</title>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<base target="_blank">
+<link rel="stylesheet" type="text/css" href="./Qgis2threejs.css">
+<script src="./threejs/three.min.js"></script>
+<script src="./threejs/OrbitControls.js"></script>
+<script src="./threejs/ViewHelper.js"></script>
+<script src="./tweenjs/tween.js"></script>
+<script src="./Qgis2threejs.js"></script>
+<script src="./dat-gui/dat.gui.min.js"></script>
+<script src="./dat-gui_panel.js"></script>
+</head>
+<body>
+<div id="view">
+  <div id="northarrow"></div>
+  <div id="navigation"></div>
+</div>
+
+<!-- popup -->
+<div id="popup">
+  <div id="closebtn">&times;</div>
+  <div id="popupbar"></div>
+  <div id="popupbody">
+    <div id="popupcontent"></div>
+
+    
+
+    <!-- page info -->
+    <div id="pageinfo">
+      <h1>Current View URL</h1>
+      <div><input id="urlbox" type="text"></div>
+
+      <h1>Usage</h1>
+      <table id="usage">
+        <tr><td colspan="2" class="star">Mouse</td></tr>
+        <tr><td>Left button + Move</td><td>Orbit</td></tr>
+        <tr><td>Mouse Wheel</td><td>Zoom</td></tr>
+        <tr><td>Right button + Move</td><td>Pan</td></tr>
+
+        <tr><td colspan="2" class="star">Keys</td></tr>
+        <tr><td>Arrow keys</td><td>Move Horizontally</td></tr>
+        <tr><td>Shift + Arrow keys</td><td>Orbit</td></tr>
+        <tr><td>Ctrl + Arrow keys</td><td>Rotate</td></tr>
+        <tr><td>Shift + Ctrl + Up / Down</td><td>Zoom In / Out</td></tr>
+        <tr><td>L</td><td>Toggle Label Visibility</td></tr>
+        <tr><td>R</td><td>Start / Stop Orbit Animation</td></tr>
+        <tr><td>W</td><td>Wireframe Mode</td></tr>
+        <tr><td>Shift + R</td><td>Reset Camera Position</td></tr>
+        <tr><td>Shift + S</td><td>Save Image</td></tr>
+      </table>
+
+      <h1>About</h1>
+      <div id="about">
+        This page was made with <a href="https://www.qgis.org/">QGIS</a> and <a href="https://github.com/minorua/Qgis2threejs">Qgis2threejs</a> plugin (version 2.7.1).
+        <div>Powered by <a href="https://threejs.org/">three.js</a>,
+        <a href="https://code.google.com/p/dat-gui/">dat-gui</a>
+        <span id="lib_proj4js"> and <a href="https://trac.osgeo.org/proj4js/">Proj4js</a></span>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- progress bar -->
+<div id="progress"><div id="progressbar"></div></div>
+
+<!-- header and footer -->
+<div id="header"><FONT COLOR="#400ed1"> <b>
+<p style="background-color:acquamarine;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The animation can be re-played from the Contol menu >>></p>
+</div>
+<div id="footer"></div>
+
+<!-- animation -->
+<div id="narrativebox" class="ef1">
+  <div id="narbody">
+    <div id="nar_8039fd8a" class="narcontent">
+      This area north of Winsley preserves the name Haugh (pronounced ‘Hay’), known from historic documents to refer to a hamlet dating from at least AD1200. The land-use is now a mixture of arable and pasture, with many field boundaries removed in recent years. What follows is an attempt to gain insight into the development of the landscape from a range of sources.
+    </div>
+    <div id="nar_76867845" class="narcontent">
+      The tithe map of 1841 shows an earlier landscape of small fields resulting from the inclosure of land, largely in the 17th and 18th centuries.
+    </div>
+    <div id="nar_835a04b6" class="narcontent">
+      Most of the fields are rectangular, but around Haugh Farm a group of fields form an oval-shaped enclosure.
+    </div>
+    <div id="nar_fe545c84" class="narcontent">
+      In 2013 Bradford on Avon Museum commissioned a Lidar survey of the land west of the town, granted-aided by the Heritage Lottery Fund. This revealed signs of a much earlier landscape, showing here as a somewhat ghostly image.
+    </div>
+    <div id="nar_55f3dc7a" class="narcontent">
+      A feature of special interest is a linear bank (red), still surviving as a very low profile earthwork, and probably built from local stone. 
+      Switch the linear layer off and on to examine it in detail.
+    </div>
+    <div id="nar_a9c3aa1c" class="narcontent">
+      This aerial photo,  taken when  the land was ploughed, shows the feature as a soil mark. The stoney bank is white and is flanked by the dark fillling of a ditch. We recognise this as a bank-and-ditch linear earthwork, well-known on the Wessex chalkland. They are prehistoric features, generally Later Bronze Age, ranging in date from around 1500BC to 500BC.
+    </div>
+    <div id="nar_b515b2bf" class="narcontent">
+      Also showing (in green) are a series of low banks, the remains of a Celtic field-system.  Fields of this type started in the Bronze Age and continued in use to the end of the Roman period, roughly 1500BC to AD450. The orange features are of unknown date or function.
+    </div>
+    <div id="nar_3d1a5994" class="narcontent">
+      Can we date the oval enclosure? The linear bank appears to be earlier – it does not cut through and disrupt the enclosure. So we have a ‘terminus post quem’ ( a point after which), roughly the later Bronze Age. The field system acts as a ‘terminus ante quem’ (point before which),suggesting that the enclosure was no later than the Roman period, ie before around AD450.
+    </div>
+    <div id="nar_844cef20" class="narcontent">
+      What could it be? It’s not substantial enough to be a settlement enclosure. It’s little more than a boundary that has come down through the ages. A possible interpretation is that it bounded ancient woodland. On the map Rose’s Wood looks like it may be a surviving remnant.
+    </div>
+    <div id="nar_3c0ab223" class="narcontent">
+      &#173;  
+    </div>
+  </div>
+  <div id="nextbtn"></div>
+</div>
+
+<script>
+Q3D.Config.viewpoint = {lookAt:{x:380466.3924501742,y:162470.12206367234,z:0.0},pos:{x:380466.3924501742,y:161476.16710065515,z:993.9549630171969}};
+Q3D.Config.animation.enabled = true;
+Q3D.Config.animation.startOnLoad = true;
+
+var container = document.getElementById("view"),
+    app = Q3D.application,
+    gui = Q3D.gui;
+
+app.init(container);    // initialize viewer
+
+// load the scene
+app.loadSceneFile("./data/index/scene.json", function (scene) {
+  // scene file has been loaded
+  app.start();
+
+  gui.dat.initLayersFolder(scene);
+
+}, function (scene) {
+  // all relevant files have been loaded
+
+  if (Q3D.Config.gui.customPlane) {
+    var zMin = undefined,
+        zMax = undefined;
+    gui.dat.initCustomPlaneFolder(zMin, zMax);
+  }
+});
+</script>
+</body>
+</html>
